@@ -13,18 +13,33 @@ import requests
 SPREE_API_URL = os.environ.get("SPREE_STORE_API_URL")
 SPREE_API_KEY = os.environ.get("SPREE_STORE_API_KEY")
 
-response = requests.get(
-    f"{SPREE_API_URL}/api/v3/store/products",
-    headers={
-        "x-spree-api-key": SPREE_API_KEY
-    }
-)
 
-response.raise_for_status()
+def get_products():
+    response = requests.get(
+        f"{SPREE_API_URL}/api/v3/store/products",
+        headers={
+            "x-spree-api-key": SPREE_API_KEY
+        }
+    )
 
-data = response.json()
+    response.raise_for_status()
 
-print(f"DATA: {data}")
+    data = response.json()['data']
+    return data
 
-for product in data["data"]:
-    print(product["name"], product["price"])
+if __name__ == "__main__":
+    response = requests.get(
+        f"{SPREE_API_URL}/api/v3/store/products",
+        headers={
+            "x-spree-api-key": SPREE_API_KEY
+        }
+    )
+
+    response.raise_for_status()
+
+    data = response.json()
+
+    print(f"DATA: {data}")
+
+    for product in data["data"]:
+        print(product["name"], product["price"])
