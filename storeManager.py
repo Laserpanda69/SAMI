@@ -1,0 +1,30 @@
+import requests
+
+
+from dotenv import *
+import os
+
+load_dotenv(find_dotenv())
+
+import requests
+
+
+# Your Spree Sandbox API details
+SPREE_API_URL = os.environ.get("SPREE_STORE_API_URL")
+SPREE_API_KEY = os.environ.get("SPREE_STORE_API_KEY")
+
+response = requests.get(
+    f"{SPREE_API_URL}/api/v3/store/products",
+    headers={
+        "x-spree-api-key": SPREE_API_KEY
+    }
+)
+
+response.raise_for_status()
+
+data = response.json()
+
+print(f"DATA: {data}")
+
+for product in data["data"]:
+    print(product["name"], product["price"])
