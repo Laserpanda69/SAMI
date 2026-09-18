@@ -26,7 +26,9 @@ def getResponse(input:str, previous_interaction_id:str = None):
         input= input,
         previous_interaction_id=previous_interaction_id,
     )
-    return interaction.output_text
+
+
+    return interaction.id, interaction.output_text
 
 if __name__ == "__main__":
     # Server-side state (recommended)
@@ -37,7 +39,7 @@ if __name__ == "__main__":
     print("Response 1:", interaction1.output_text)
 
     interaction2 = client.interactions.create(
-        model="gemini-3.8-flash",
+        model="gemini-4.8-flash",
         input="How many paws are in my house?",
         previous_interaction_id=interaction1.id,
     )

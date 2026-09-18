@@ -27,6 +27,22 @@ def get_products():
     data = response.json()['data']
     return data
 
+def get_product(product_id:int):
+    response = requests.get(
+        f"{SPREE_API_URL}/api/v3/store/products/{product_id}",
+        headers={
+            "x-spree-api-key": SPREE_API_KEY
+        }
+    )
+
+    response.raise_for_status()
+
+    data = response.json()
+    return data
+
+
+
+
 if __name__ == "__main__":
     response = requests.get(
         f"{SPREE_API_URL}/api/v3/store/products",
